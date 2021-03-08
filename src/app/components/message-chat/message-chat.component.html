@@ -1,0 +1,36 @@
+<div class="container">
+
+    <div class="chat">
+        <div *ngFor="let message of messages" class="msg">  
+                <div class="head">
+                    {{message.user_id}}
+                </div>
+                <p class="body">
+                    {{message.text}}
+                </p>
+                <div class="footer">
+                        {{message.date}}
+                </div>
+            
+        </div>
+    </div>
+
+        <form class="tools">
+            <input [(ngModel)]="messageInput" name="messageInput" type="text" placeholder="Message" class="form-control col mr-2">
+            
+            <input class="form-control col-2 mr-2" type="text" placeholder="From">
+            
+            <div  [style.display]="enableEmojis?'flex':'none'" 
+                  class="emoji-list" >
+                    <emoji-mart (emojiClick)="addEmoji($event)" ></emoji-mart>
+            </div>
+
+            <button (click)="fillEmojiList()" type="button" class="form-control col-1 mr-2" >
+                <fa-icon [icon]="fagrinalt"></fa-icon>
+            </button>
+
+            <button (click)="sendMessage()" class="btn btn-primary" type="button">
+                <fa-icon [icon]="fapaperplane"></fa-icon>
+            </button>
+        </form>
+</div>
