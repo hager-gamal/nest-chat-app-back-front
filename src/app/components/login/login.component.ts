@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from 'src/app/services';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AuthService } from '../../services';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +14,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor( private formBuilder: FormBuilder,private authService:AuthService) { }
+  constructor( private formBuilder: FormBuilder,
+                private authService:AuthService,
+                private route: ActivatedRoute, 
+                private router:Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -21,15 +27,16 @@ export class LoginComponent implements OnInit {
   }
 
    // convenience getter for easy access to form fields
-  get f() { 
-    //console.log(this.loginForm.controls);
-    return this.loginForm.controls; }
+  get f() { return this.loginForm.controls;}
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    //console.warn(this.profileForm.value);
     console.log(this.loginForm.value);
-    //this.authService.register()
+      this.authService.login(this.loginForm.value).subscribe(user=>{
+      this.router.navigate(['messages'], { relativeTo: this.route.parent });
+    });
+    
+    //this.authService.login(this.loginForm.value.email,this.loginForm.value.password)
   }
 
 }

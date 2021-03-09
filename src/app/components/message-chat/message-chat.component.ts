@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ChatService } from '../../services/chat/chat.service';
-import { Message , emojiList } from '../../models';
+import { Message  } from '../../models';
 import { faPaperPlane , faGrinAlt} from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'src/app/services';
 @Component({
   selector: 'app-message-chat',
   templateUrl: './message-chat.component.html',
@@ -10,46 +11,61 @@ import { faPaperPlane , faGrinAlt} from '@fortawesome/free-solid-svg-icons';
 })
 export class MessageChatComponent implements OnInit {
   
-  messages:Message[];
+  messages:Message[]=new Array<Message>();
   emojisList:string[];
   enableEmojis:boolean;
   messageInput:string;
   fapaperplane=faPaperPlane;
   fagrinalt=faGrinAlt;
 
-  constructor(//private chat: ChatService
-    ){ }
+  constructor(private chat: ChatService,
+    private messageService:MessageService){ }
 
   ngOnInit() {
-    /*
+    
     this.chat.messages.subscribe(msg => {
+      this.messages.push(msg); 
       console.log(msg);
     })
-    */
-   this.emojisList = emojiList;
-   console.log(this.emojisList);
-   this.enableEmojis=false;
-   this.messages=[
-      {
-        date:new Date(Date.now()).toString(),
-        roomName:"public",
-        text:"hello",
-        user_id:"ahmed"
-      },
-      {
-        date:new Date(Date.now()).toString(),
-        roomName:"public",
-        text:"hello here",
-        user_id:"amgad"
-      },
-      {
-        date:new Date(Date.now()).toString(),
-        roomName:"public",
-        text:"welcome",
-        user_id:"hossam"
-      }
+    
+   //this.emojisList = emojiList;
+   //console.log(this.emojisList);
+   
+   this.messageService.getMessages().subscribe((retMessages:Message[])=>{
+           
+        for(let i=0;i<100;++i){
+        if(!retMessages[i])break;
 
-    ];
+          let m=new Message();
+          this.messages.push(m); 
+          this.messages[i].messageText =retMessages[i].messageText;
+          console.log(retMessages[i]);
+        }
+        console.log(this.messages);
+  });
+   
+   this.enableEmojis=false;
+  //  this.messages=[
+  //     {
+  //       date:new Date(Date.now()).toString(),
+  //       roomName:"public",
+  //       text:"hello",
+  //       user_id:"ahmed"
+  //     },
+  //     {
+  //       date:new Date(Date.now()).toString(),
+  //       roomName:"public",
+  //       text:"hello here",
+  //       user_id:"amgad"
+  //     },
+  //     {
+  //       date:new Date(Date.now()).toString(),
+  //       roomName:"public",
+  //       text:"welcome",
+  //       user_id:"hossam"
+  //     }
+
+  //   ];
   }
 
   fillEmojiList(){
@@ -75,12 +91,12 @@ export class MessageChatComponent implements OnInit {
     console.log(this.messageInput);
     if(this.messageInput){
       let message:Message=new Message();
-      message.text=this.messageInput;
+      message.messageText=this.messageInput;
       message.user_id="a";
       this.messages.push(message);
-
+      this.chat.sendMsg(this.messageInput);
       this.messageInput="";
     }
-    //this.chat.sendMsg("Test Message");
+    
   }
 }

@@ -11,14 +11,18 @@ import { MessageChatComponent,
          LoginComponent } from './components';
 
 import { AppRoutingModule } from './app-routing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SignupLoginComponent } from './components/signup-login/signup-login.component';
+import { AuthenticationInterceptor, ErrorInterceptor } from './helpers';
+import { WebsocketService } from './services';
 
 @NgModule({
   declarations: [
     AppComponent,
     MessageChatComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    SignupLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,17 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    WebsocketService,
+    { provide: HTTP_INTERCEPTORS, 
+      useClass: AuthenticationInterceptor , 
+      multi: true 
+    },
+    { provide: HTTP_INTERCEPTORS, 
+      useClass: ErrorInterceptor, 
+      multi: true 
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

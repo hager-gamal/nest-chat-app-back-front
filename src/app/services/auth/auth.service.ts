@@ -30,9 +30,9 @@ export class AuthService {
   }
 
   register(user:User){
-    this.url+="/users/register";
+    this.url=`${enviroment._apiUrl}/auth/register`;
     
-    return this.http.post<User>(this.url, { user})
+    return this.http.post<User>(this.url, user)
       .pipe(
           map((user:User)=> {
             // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
@@ -44,9 +44,9 @@ export class AuthService {
       }));
   }
 
-  login(username: string, password: string) {
-    this.url+="/users/login";
-    return this.http.post<User>(this.url, { username, password })
+  login(user:User) {
+    this.url=`${enviroment._apiUrl}/auth/login`;
+    return this.http.post<User>(this.url, user)
         .pipe(
             map((user:User)=> {
               // store user details and basic auth credentials in local storage to keep user logged in between page refreshes

@@ -1,0 +1,39 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: flex-start;
+    width: 70px;
+    height: 70px;
+}
+
+.login{
+    border: #27ae60 1px solid;
+    background:#2ecc71;
+}
+
+.login:hover{
+    background:#2CC06B; 
+}
+  
+
+.signup , .submit{
+    background:#3498db;
+    border: #2980b9 1px solid;
+}
+
+.signup:hover{ 
+  background:#3594D2; 
+}
+
+.btn{
+    width:125px;
+    padding-top:5px;
+    padding-bottom:5px;
+    color:white;
+    border-radius:4px;
+    
+    margin:20px 0px 20px 16px;
+    font-weight:800;
+    font-size:0.8em;
+}

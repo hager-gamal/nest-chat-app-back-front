@@ -24,12 +24,12 @@ body{
     border: hsl(204, 64%, 44%) 4px solid; 
     margin: 0px auto 0 auto;
     /*height: 50vh;*/
+    margin: 50px auto;
    
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
-    align-content: center;
 }
     
 .password , .email{
@@ -52,23 +52,14 @@ body{
     font-weight:800;
     font-size:0.8em;
 }
-
-.login{
-    border: #27ae60 1px solid;
-    background:#2ecc71;
-}
-
-.login:hover{
-    background:#2CC06B; 
-}
   
 
-.signup , .submit{
+.submit{
     background:#3498db;
     border: #2980b9 1px solid;
 }
 
-.signup:hover{ 
+.submit:hover{ 
   background:#3594D2; 
 }
 
