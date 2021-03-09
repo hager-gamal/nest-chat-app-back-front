@@ -92,7 +92,7 @@ export class MessageChatComponent implements OnInit {
     if(this.messageInput){
       let message:Message=new Message();
       message.messageText=this.messageInput;
-      message.user_id="a";
+      //message.user_id="a";
       this.messages.push(message);
       this.chat.sendMsg(this.messageInput);
       this.messageInput="";
